@@ -5,8 +5,8 @@ import java.awt.event.ActionListener;
 import java.awt.event.ActionEvent;
 
 /**
-* This is the main menu of the program that just contains a combobox
-* for the user to decide what query they want to execute.
+* This is the content panel for the query of if one category was visited at least
+* a explicated number of times.
 *
 * @author Marc Gatti
 * @version 1.0
@@ -52,6 +52,11 @@ public class NumUsersOneCat {
 	/** Button to reset the query. */
 	private JButton resetBtn;
 
+	/**
+	* Constructor that strores a reference to the parent context switcher.
+	*
+	* @param cs Parent context switcher.
+	*/
 	public NumUsersOneCat(ContextSwitcher cs) {
 		parentCS = cs;
 	}
@@ -69,10 +74,12 @@ public class NumUsersOneCat {
 		JPanel totalGUIPane = new JPanel();
 		totalGUIPane.setLayout(new BoxLayout(totalGUIPane, BoxLayout.PAGE_AXIS));
 
+		// Define the dimensions of the filler space between components.
 		Dimension minSize = new Dimension(10,10);
 		Dimension prefSize = new Dimension(10,10);
 		Dimension maxSize = new Dimension(Short.MAX_VALUE, 10);
-		
+
+		// Add components to the content panel.
 		totalGUIPane.add(new Box.Filler(minSize, prefSize, maxSize));
         totalGUIPane.add(createQueryPane());
         totalGUIPane.add(new Box.Filler(minSize, prefSize, maxSize));
@@ -84,7 +91,7 @@ public class NumUsersOneCat {
 	}
 
 	/**
-	* Creates the query panel and returns it to the content pane
+	* Creates the query panel and returns it to the content panel
 	* to be added.
 	*
 	* @return The constructed query panel.
@@ -93,12 +100,14 @@ public class NumUsersOneCat {
 		// Set up the panel.
 		queryPane = new JPanel();
 
+		// Creates the input means for the user.
 		catCb1 = new JComboBox<String>(categories);
 		numUsersTxt = new JTextField("0");
 		numUsersTxt.setPreferredSize(new Dimension(55, 24));
 
         queryPane.setLayout(new BoxLayout(queryPane, BoxLayout.X_AXIS));
 
+        // Adds components to the query panel.
         queryPane.add(Box.createRigidArea(new Dimension(10,0)));
         queryPane.add(new JLabel("Are there more than "));
         queryPane.add(Box.createRigidArea(new Dimension(10,0)));
@@ -123,6 +132,8 @@ public class NumUsersOneCat {
 		// Set up the panel.
 		buttonPane = new JPanel();
 		queryBtn = new JButton("Query");
+
+		// Creates and adds the action listeners for the query button and the reset button.
 		queryBtn.addActionListener(
 			new ActionListener() {
 				public void actionPerformed(ActionEvent e) {
@@ -140,6 +151,7 @@ public class NumUsersOneCat {
 
 		buttonPane.setLayout(new BoxLayout(buttonPane, BoxLayout.X_AXIS));
 
+		// Add buttons to the panel.
 		buttonPane.add(queryBtn);
 		buttonPane.add(Box.createRigidArea(new Dimension(10,0)));
 		buttonPane.add(resetBtn);

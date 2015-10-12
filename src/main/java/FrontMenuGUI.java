@@ -44,14 +44,18 @@ public class FrontMenuGUI {
 	/** Reference to parent context switcher. */
 	private ContextSwitcher parentCS;
 
+	/**
+	* Constructor that strores a reference to the parent context switcher.
+	*
+	* @param cs Parent context switcher.
+	*/
 	public FrontMenuGUI(ContextSwitcher cs) {
 		parentCS = cs;
 	}
 
 	/**
 	* Creates the content panel for the GUI. It first creates the bottom
-	* level panel and then builds the query panel and the button panel
-	* on top of it.
+	* level panel and then builds the query panel on top of it.
 	*
 	* @return The content panel for the GUI.
 	*/
@@ -61,10 +65,12 @@ public class FrontMenuGUI {
 		JPanel totalGUIPane = new JPanel();
 		totalGUIPane.setLayout(new BoxLayout(totalGUIPane, BoxLayout.PAGE_AXIS));
 
+		// Define the dimensions of the filler space between components.
 		Dimension minSize = new Dimension(10,10);
 		Dimension prefSize = new Dimension(10,10);
 		Dimension maxSize = new Dimension(Short.MAX_VALUE, 10);
 		
+		// Add components to the content panel.
 		totalGUIPane.add(new Box.Filler(minSize, prefSize, maxSize));
         totalGUIPane.add(createQueryPane());
         totalGUIPane.add(new Box.Filler(minSize, prefSize, maxSize));
@@ -83,6 +89,7 @@ public class FrontMenuGUI {
 		// Set up the panel.
 		queryTypePane = new JPanel();
 
+		// Defines the combobox and the action listener that switches the context based on selection.
 		queryCb = new JComboBox<String>(queryTypes);
 		queryCb.setRenderer(new ComboBoxRenderer("Select your query."));
 		queryCb.setSelectedIndex(-1);
@@ -102,6 +109,13 @@ public class FrontMenuGUI {
 		return queryTypePane;
 	}
 
+	/**
+	* Inner class for a combobox renderer that allows the combobox to have a default selected title.
+	*
+	* @author Marc Gatti
+	* @version 1.0
+	* @since 10/9/2015
+	*/
 	class ComboBoxRenderer extends JLabel implements ListCellRenderer<Object> {
 
 		/** 
@@ -111,12 +125,28 @@ public class FrontMenuGUI {
 		*/
 		private static final long serialVersionUID = 1L;
 
+		/** String field that stores the title that the combobox will have. */
 		private String _title;
 
+		/**  
+		* Constructor that just stores the title.
+		*
+		* @param String The title that will be the default for the combobox.
+		*/
 		public ComboBoxRenderer(String title) {
 			_title = title;
 		}
 
+		/*
+		* Sets the title for the combobox and returns a reference to this classes object
+		*
+		* @param JList<? extends Object> List of objects stored in the combobox.
+		* @param Object Reference data for parameter list's data.
+		* @param int Index in parameter list.
+		* @param boolean True if it is silected in the list. False if it is not.
+		* @param boolean True if it is focused in the list. False if it is not.
+		* @return The reference to this object. 
+		*/
 		@Override
 		public Component getListCellRendererComponent(JList<? extends Object> list, Object value, int index,
 			boolean isSelected, boolean hasFocus) {
